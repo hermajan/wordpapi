@@ -15,6 +15,8 @@ use Wordpapi\Models\Model;
 abstract class Endpoint {
 	protected Client $guzzle;
 	
+	protected string $namespace = "wp/v2";
+	
 	protected string $route;
 	
 	protected string $url;
@@ -45,7 +47,7 @@ abstract class Endpoint {
 	 */
 	protected function get(string $route, array $arguments = []): array {
 		try {
-			$response = $this->guzzle->get($this->url."/wp-json/wp/v2/".$route, ["query" => $arguments]);
+			$response = $this->guzzle->get($this->url."/wp-json/".$this->namespace."/".$route, ["query" => $arguments]);
 			return (array)Json::decode($response->getBody(), Json::FORCE_ARRAY);
 		} catch(GuzzleException|JsonException $e) {
 			throw new InvalidEndpointException($e->getMessage(), $e->getCode(), $e);
