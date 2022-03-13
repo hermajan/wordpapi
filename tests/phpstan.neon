@@ -3,3 +3,6 @@ parameters:
 	checkMissingIterableValueType: false
 	scanDirectories:
 		- %currentWorkingDirectory%/src/
+
+includes:
+	- %currentWorkingDirectory%/vendor/szepeviktor/phpstan-wordpress/extension.neon
