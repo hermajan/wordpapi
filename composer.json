@@ -1,0 +1,23 @@
+{
+	"name": "hermajan/wordpapi",
+	"description": "Wordpapi",
+	"type": "library",
+	"homepage": "https://hermajan.net/wordpapi",
+	"support": {
+		"issues": "https://github.com/hermajan/wordpapi/issues"
+	},
+	"license": "MIT",
+	"autoload": {
+		"psr-4": {
+			"Wordpapi\\": "src"
+		}
+	},
+	"require": {
+		"php": ">=8.0 <8.2",
+		"guzzlehttp/guzzle": "^7.4",
+		"nette/utils": "^3.2"
+	},
+	"require-dev": {
+		"phpstan/phpstan": "^1.4"
+	}
+}

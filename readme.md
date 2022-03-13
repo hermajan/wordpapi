@@ -1,2 +1,2 @@
-# wordpapi
+# Wordpapi
 WordPress REST API library
