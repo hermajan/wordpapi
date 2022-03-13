@@ -4,5 +4,8 @@ parameters:
 	scanDirectories:
 		- %currentWorkingDirectory%/src/
 
+	excludePaths:
+		- %currentWorkingDirectory%/src/Controllers/*
+
 includes:
 	- %currentWorkingDirectory%/vendor/szepeviktor/phpstan-wordpress/extension.neon

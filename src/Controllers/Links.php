@@ -10,7 +10,7 @@ class Links extends \WP_REST_Controller {
 	}
 	
 	public function get_item($request): \WP_Error|\WP_REST_Response|\WP_HTTP_Response {
-		$bookmark = get_bookmark((int)$request["id"]);
+		$bookmark = get_bookmark($request["id"]);
 		if(!isset($bookmark) or $bookmark->link_visible !== "Y") {
 			return new \WP_Error("rest_link_invalid_id", __("Invalid link ID."), ["status" => 404]);
 		}
@@ -57,7 +57,7 @@ class Links extends \WP_REST_Controller {
 		return $response;
 	}
 	
-	public function register_routes() {
+	public function register_routes(): void {
 		register_rest_route($this->namespace, "/".$this->rest_base, [
 			["methods" => \WP_REST_Server::READABLE, "callback" => [$this, "get_items"]]
 		]);
@@ -67,7 +67,7 @@ class Links extends \WP_REST_Controller {
 		]);
 	}
 	
-	protected function prepare_links($item) {
+	protected function prepare_links($item): array {
 		return [
 			"self" => ["href" => rest_url($this->namespace."/".$this->rest_base."/".$item->link_id)],
 			"collection" => ["href" => rest_url($this->namespace."/".$this->rest_base)],

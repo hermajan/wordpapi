@@ -10,7 +10,7 @@ class LinksCategories extends \WP_REST_Controller {
 	}
 	
 	public function get_item($request): \WP_Error|\WP_REST_Response|\WP_HTTP_Response {
-		$term = get_term((int)$request["id"]);
+		$term = get_term($request["id"]);
 		if(!isset($term)) {
 			return new \WP_Error("rest_link_invalid_id", __("Invalid link category ID."), ["status" => 404]);
 		}
@@ -49,7 +49,7 @@ class LinksCategories extends \WP_REST_Controller {
 		return $response;
 	}
 	
-	public function register_routes() {
+	public function register_routes(): void {
 		register_rest_route($this->namespace, "/".$this->rest_base, [
 			["methods" => \WP_REST_Server::READABLE, "callback" => [$this, "get_items"]]
 		]);
@@ -59,7 +59,7 @@ class LinksCategories extends \WP_REST_Controller {
 		]);
 	}
 	
-	protected function prepare_links($item) {
+	protected function prepare_links($item): array {
 		return [
 			"self" => ["href" => rest_url($this->namespace."/".$this->rest_base."/".$item->term_id)],
 			"collection" => ["href" => rest_url($this->namespace."/".$this->rest_base)]
