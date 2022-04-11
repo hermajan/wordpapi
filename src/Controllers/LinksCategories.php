@@ -51,11 +51,11 @@ class LinksCategories extends \WP_REST_Controller {
 	
 	public function register_routes(): void {
 		register_rest_route($this->namespace, "/".$this->rest_base, [
-			["methods" => \WP_REST_Server::READABLE, "callback" => [$this, "get_items"]]
+			["methods" => \WP_REST_Server::READABLE, "callback" => [$this, "get_items"], "permission_callback" => fn() => true]
 		]);
 		
 		register_rest_route($this->namespace, "/".$this->rest_base."/(?P<id>[\d]+)", [
-			["methods" => \WP_REST_Server::READABLE, "callback" => [$this, "get_item"]]
+			["methods" => \WP_REST_Server::READABLE, "callback" => [$this, "get_item"], "permission_callback" => fn() => true]
 		]);
 	}
 	
