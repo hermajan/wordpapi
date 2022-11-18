@@ -37,4 +37,24 @@ class Link extends Model {
 			}
 		}
 	}
+	
+	public function getCategories(): array {
+		return $this->categories;
+	}
+	
+	public function getImage(): string {
+		return $this->image;
+	}
+	
+	public function getTarget(): string {
+		return $this->target;
+	}
+	
+	public function getUrl(): string {
+		return $this->url;
+	}
+	
+	public function isVisible(): bool {
+		return $this->visible;
+	}
 }

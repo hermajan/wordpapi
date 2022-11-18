@@ -21,7 +21,7 @@ class Links extends \WP_REST_Controller {
 	public function get_items($request): \WP_Error|\WP_REST_Response|\WP_HTTP_Response {
 		$links = [];
 		
-		$bookmarks = get_bookmarks(["hide_invisible" => true]);
+		$bookmarks = get_bookmarks(["hide_invisible" => true] + $request->get_query_params());
 		foreach($bookmarks as $link) {
 			$response = $this->prepare_item_for_response($link, $request);
 			$links[] = $this->prepare_response_for_collection($response);

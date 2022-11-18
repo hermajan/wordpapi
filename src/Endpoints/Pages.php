@@ -26,6 +26,23 @@ class Pages extends Posts {
 	}
 	
 	/**
+	 * @param int $id Category ID
+	 * @throws InvalidEndpointException
+	 */
+	public function listByCategory(int $id, array $arguments = []): array {
+		return $this->list($arguments + ["categories" => $id]);
+	}
+	
+	/**
+	 * Returns list of children pages of some page
+	 * @throws InvalidEndpointException
+	 * @var int $id ID of parent page
+	 */
+	public function listChildren(int $id, array $arguments = []): array {
+		return $this->list($arguments + ["parent" => $id]);
+	}
+	
+	/**
 	 * @throws InvalidEndpointException
 	 */
 	public function retrieve(int|string $id, array $arguments = []): Page {
@@ -51,5 +68,25 @@ class Pages extends Posts {
 		$categories = $this->getCategories($fields["categories"] ?? [], $arguments["with_categories"] ?? false);
 		$tags = $this->getTags($fields["tags"] ?? [], $arguments["with_tags"] ?? false);
 		return new Page($fields, $categories, $tags);
+	}
+	
+	/**
+	 * Returns full slug of page with slugs of parents
+	 * @param int $id ID of page
+	 * @throws InvalidEndpointException
+	 */
+	public function getFullSlug(int $id): string {
+		$slugParts = [];
+		
+		$page = $this->retrieve($id);
+		if(isset($page)) {
+			$slugParts[] = $page->getSlug();
+			
+			if($page->getFields()["parent"] != 0) {
+				$slugParts[] = $this->getFullSlug($page->getFields()["parent"]);
+			}
+		}
+		
+		return implode("/", array_reverse($slugParts));
 	}
 }
