@@ -13,7 +13,7 @@
 		}
 	},
 	"require": {
-		"php": ">=8.0 <8.2",
+		"php": ">=8.0",
 		"guzzlehttp/guzzle": "^7.4",
 		"nette/utils": "^3.2"
 	},
